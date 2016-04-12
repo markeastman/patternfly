@@ -6,6 +6,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import uk.me.eastmans.patternfly.domain.MigrationComponent;
 import uk.me.eastmans.patternfly.domain.Project;
 import uk.me.eastmans.patternfly.repositories.ProjectRepository;
 
@@ -30,6 +31,11 @@ public class WindupLoader implements ApplicationListener<ContextRefreshedEvent> 
         projectRepository.save(p1);
 
         Project p2 = new Project("Allianz full");
+        for (int i = 1; i < 40; i++)
+        {
+            MigrationComponent c = new MigrationComponent( "application_" + i );
+            p2.addComponent(c);
+        }
         projectRepository.save(p2);
 
     }

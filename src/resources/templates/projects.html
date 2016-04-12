@@ -106,11 +106,13 @@
                     <thead>
                     <tr>
                         <th>Name</th>
+                        <th>Component Count</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr data-th-each="project : ${projects}">
                         <td><a href="/project/1" data-th-href="@{/project/}+${project.id}" data-th-text="${project.name}">Project name</a></td>
+                        <td data-th-text="${project.componentCount}">0</td>
                     </tr>
                     </tbody>
                 </table>

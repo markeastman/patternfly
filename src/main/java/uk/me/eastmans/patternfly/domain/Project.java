@@ -4,7 +4,6 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,6 +21,9 @@ public class Project
     @Size(min = 1, max = 255)
     @Column(unique = true)
     private String name;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<MigrationComponent> components = new ArrayList<>();
 
     public Project() {}
 
@@ -44,6 +46,25 @@ public class Project
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<MigrationComponent> getComponents() {
+        return components;
+    }
+
+    public void setComponents(List<MigrationComponent> components) {
+        this.components = components;
+    }
+
+    public void addComponent(MigrationComponent c)
+    {
+        c.setProject(this);
+        this.components.add( c );
+    }
+
+    public int getComponentCount()
+    {
+        return this.components.size();
     }
 
     @Override

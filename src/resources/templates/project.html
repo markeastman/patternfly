@@ -57,6 +57,18 @@
                 <button class="btn btn-default pull-right fa fa-pencil" data-th-onclick="'editProject(' + ${project.id} + ');'"> Edit</button>
             </div>
             <div class="panel-body">
+                <table class="datatable table table-striped table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="component : ${project.components}">
+                        <td><a href="/component/1" data-th-href="@{/component/}+${component.id}" data-th-text="${component.name}">Component name</a></td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -64,11 +76,6 @@
 </div>
 <script>
   $(document).ready(function() {
-    // matchHeight the contents of each .card-pf and then the .card-pf itself
-    $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
-    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
-    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-footer").matchHeight();
-    $(".row-cards-pf > [class*='col'] > .card-pf").matchHeight();
 
     // initialize tooltips
     $('[data-toggle="tooltip"]').tooltip();
@@ -76,13 +83,8 @@
     // Initialize the vertical navigation
     $().setupVerticalNavigation(true);
 
-    $("input[type='checkbox']").change(function (e) {
-      if ($(this).is(":checked")) {
-        $(this).closest('.list-group-item').addClass("active");
-      } else {
-        $(this).closest('.list-group-item').removeClass("active");
-      }
-    });
+    $('.datatable').dataTable();
+
   });
 </script>
 </body>
