@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en-us" class="layout-pf layout-pf-fixed" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <!--/*/ <th:block th:include="fragments/headerinc :: head"></th:block> /*/-->
+    <script>
+        function editProject(id)
+        {
+            window.location.href = '/editProject/' + id;
+        }
+    </script>
+</head>
+<body class="cards-pf">
+
+<!--/*/ <th:block th:include="fragments/headerinc :: navbar"></th:block> /*/-->
+
+<div class="nav-pf-vertical nav-pf-vertical-with-secondary-nav">
+
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="/projects">
+                <span class="fa pficon-enterprise"></span>
+                <span class="list-group-item-value">Projects</span>
+            </a>
+        </li>
+        <li class="list-group-item active">
+            <a href="/home">
+                <span class="fa pficon-regions"></span>
+                <span class="list-group-item-value">Components</span>
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="/home">
+                <span class="fa pficon-build"></span>
+                <span class="list-group-item-value">Technologies</span>
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="/home">
+                <span class="fa pficon-zone"></span>
+                <span class="list-group-item-value">Issues</span>
+            </a>
+        </li>
+        <li class="list-group-item">
+            <a href="/home">
+                <span class="fa pficon-registry"></span>
+                <span class="list-group-item-value">Dependencies</span>
+            </a>
+        </li>
+    </ul>
+</div>
+
+<div class="container-fluid container-pf-nav-pf-vertical container-pf-nav-pf-vertical-with-secondary">
+    <div class="row">
+        <div class="col-xs-12 panel panel-default">
+            <div class="panel-heading">
+                <span class="h3 panel-title" data-th-text="${project.name}">Project</span>
+                <button class="btn btn-default pull-right fa fa-pencil" data-th-onclick="'editProject(' + ${project.id} + ');'"> Edit</button>
+            </div>
+            <div class="panel-body">
+            </div>
+        </div>
+    </div>
+
+</div>
+<script>
+  $(document).ready(function() {
+    // matchHeight the contents of each .card-pf and then the .card-pf itself
+    $(".row-cards-pf > [class*='col'] > .card-pf .card-pf-title").matchHeight();
+    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-body").matchHeight();
+    $(".row-cards-pf > [class*='col'] > .card-pf > .card-pf-footer").matchHeight();
+    $(".row-cards-pf > [class*='col'] > .card-pf").matchHeight();
+
+    // initialize tooltips
+    $('[data-toggle="tooltip"]').tooltip();
+
+    // Initialize the vertical navigation
+    $().setupVerticalNavigation(true);
+
+    $("input[type='checkbox']").change(function (e) {
+      if ($(this).is(":checked")) {
+        $(this).closest('.list-group-item').addClass("active");
+      } else {
+        $(this).closest('.list-group-item').removeClass("active");
+      }
+    });
+  });
+</script>
+</body>
+</html>
+
+
