@@ -49,11 +49,19 @@ public class ProjectsController {
     public String addProject(Model model)
     {
         model.addAttribute("project", new Project());
-        return "addProject";
+        return "editProject";
     }
 
+    @RequestMapping("/editProject/{id}")
+    public String editProject(Model model, @PathVariable Long id) {
+        // Try to get the project
+        Project project = projectService.getProjectById(id);
 
-    @RequestMapping(value="/createProject",method= RequestMethod.POST)
+        model.addAttribute("project", project);
+        return "editProject";
+    }
+
+    @RequestMapping(value="/project",method= RequestMethod.POST)
     public String createProject(@Valid @ModelAttribute Project p, BindingResult bindingResult, Model model)
     {
         // Validate the project
@@ -62,7 +70,7 @@ public class ProjectsController {
             return "redirect:/projects";
         }
 
-        return "addProject";
+        return "editProject";
     }
 
 
