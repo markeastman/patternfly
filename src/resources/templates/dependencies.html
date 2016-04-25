@@ -22,26 +22,26 @@
                 <span class="list-group-item-value">Projects</span>
             </a>
         </li>
-        <li class="list-group-item active">
+        <li class="list-group-item">
             <a href="#" data-th-href="@{/project/}+${project.id}">
                 <span class="fa pficon-regions"></span>
                 <span class="list-group-item-value">Components</span>
             </a>
         </li>
         <li class="list-group-item">
-            <a href="#" data-th-href="@{/project/}+${project.id}+'/technologies'">
+            <a href="/technologies">
                 <span class="fa pficon-build"></span>
                 <span class="list-group-item-value">Technologies</span>
             </a>
         </li>
         <li class="list-group-item">
-            <a href="#" data-th-href="@{/project/}+${project.id}+'/issues'">
+            <a href="/home">
                 <span class="fa pficon-zone"></span>
                 <span class="list-group-item-value">Issues</span>
             </a>
         </li>
-        <li class="list-group-item">
-            <a href="#" data-th-href="@{/project/}+${project.id}+'/dependencies'">
+        <li class="list-group-item active">
+            <a href="/dependencies">
                 <span class="fa pficon-registry"></span>
                 <span class="list-group-item-value">Dependencies</span>
             </a>
@@ -57,30 +57,7 @@
                 <button class="btn btn-default pull-right fa fa-pencil" data-th-onclick="'editProject(' + ${project.id} + ');'"> Edit</button>
             </div>
             <div class="panel-body">
-                <table class="datatable table table-striped table-bordered">
-                    <thead>
-                    <tr>
-                        <th>Component Name</th>
-                        <th>Group</th>
-                        <th>Status</th>
-                        <th>Story Points</th>
-                        <th>Incident Count</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-th-each="component : ${project.components}">
-                        <td>
-                            <a href="/component/1" th:if="${component.reportAvailable}" data-th-href="@{/component/}+${component.id}" data-th-text="${component.name}">Component name</a>
-                            <span th:if="${!component.reportAvailable}" data-th-text="${component.name}">Component name</span>
-                        </td>
-                        <td th:if="${component.componentGroup != null}" data-th-text="${component.componentGroup.name}">Group name</td>
-                        <td th:if="${component.componentGroup == null}" ></td>
-                        <td data-th-text="${component.status}">status</td>
-                        <td data-th-text="${component.storyPoints}">1049</td>
-                        <td data-th-text="${component.incidentCount}">status</td>
-                    </tr>
-                    </tbody>
-                </table>
+                <p>Will display component dependencies</p>
             </div>
         </div>
     </div>

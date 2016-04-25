@@ -19,6 +19,17 @@ public class MigrationComponent {
     @ManyToOne
     private Project project;
 
+    @ManyToOne
+    private ComponentGroup componentGroup;
+
+    @Column(name = "status", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private MigrationComponentStatus status = MigrationComponentStatus.NOT_ANALYZED;
+
+    private Integer storyPoints;
+
+    private String incidentCount;
+
     public Long getId() {
         return id;
     }
@@ -43,11 +54,48 @@ public class MigrationComponent {
         this.project = project;
     }
 
+    public ComponentGroup getComponentGroup() {
+        return componentGroup;
+    }
+
+    public void setComponentGroup(ComponentGroup componentGroup) {
+        this.componentGroup = componentGroup;
+    }
+
     public MigrationComponent()
     {}
 
     public MigrationComponent(String name) {
         this.name = name;
+    }
+
+    public MigrationComponentStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(MigrationComponentStatus status) {
+        this.status = status;
+    }
+
+    public Integer getStoryPoints() {
+        return storyPoints;
+    }
+
+    public void setStoryPoints(Integer storyPoints) {
+        this.storyPoints = storyPoints;
+    }
+
+    public String getIncidentCount() {
+        return incidentCount;
+    }
+
+    public void setIncidentCount(String incidentCount) {
+        this.incidentCount = incidentCount;
+    }
+
+    public boolean isReportAvailable()
+    {
+        return status == MigrationComponentStatus.PROCESSED;
     }
 
     @Override

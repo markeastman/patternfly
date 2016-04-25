@@ -38,6 +38,12 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="col-md-2 control-label" for="fileLocation">File Location</label>
+                        <div class="col-md-6">
+                            <input type="text" id="fileLocation" class="form-control" th:field="*{localFileLocation}" />
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <div class="col-md-10 col-md-offset-2">
                             <button type="submit" class="btn btn-primary">Save</button>
                             <button type="button" class="btn btn-default" onclick="window.location.href='/projects'">Cancel</button>

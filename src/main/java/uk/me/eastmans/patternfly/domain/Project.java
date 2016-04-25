@@ -22,8 +22,14 @@ public class Project
     @Column(unique = true)
     private String name;
 
+    @Size(min = 0, max = 512)
+    private String localFileLocation;
+
     @OneToMany(cascade = CascadeType.ALL)
     private List<MigrationComponent> components = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<ComponentGroup> componentGroups = new ArrayList<>();
 
     public Project() {}
 
@@ -48,6 +54,14 @@ public class Project
         this.name = name;
     }
 
+    public String getLocalFileLocation() {
+        return localFileLocation;
+    }
+
+    public void setLocalFileLocation(String localFileLocation) {
+        this.localFileLocation = localFileLocation;
+    }
+
     public List<MigrationComponent> getComponents() {
         return components;
     }
@@ -65,6 +79,20 @@ public class Project
     public int getComponentCount()
     {
         return this.components.size();
+    }
+
+    public List<ComponentGroup> getComponentGroups() {
+        return componentGroups;
+    }
+
+    public void setComponentGroups(List<ComponentGroup> componentGroups) {
+        this.componentGroups = componentGroups;
+    }
+
+    public void addComponentGroup(ComponentGroup g)
+    {
+        g.setProject(this);
+        this.componentGroups.add( g );
     }
 
     @Override

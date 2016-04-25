@@ -6,7 +6,9 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
+import uk.me.eastmans.patternfly.domain.ComponentGroup;
 import uk.me.eastmans.patternfly.domain.MigrationComponent;
+import uk.me.eastmans.patternfly.domain.MigrationComponentStatus;
 import uk.me.eastmans.patternfly.domain.Project;
 import uk.me.eastmans.patternfly.repositories.ProjectRepository;
 
@@ -31,10 +33,25 @@ public class WindupLoader implements ApplicationListener<ContextRefreshedEvent> 
         projectRepository.save(p1);
 
         Project p2 = new Project("Allianz full");
-        for (int i = 1; i < 40; i++)
+        ComponentGroup g1 = new ComponentGroup("Finance Web");
+        p2.addComponentGroup(g1);
+        ComponentGroup g2 = new ComponentGroup("HR Backend");
+        p2.addComponentGroup(g2);
+
+        for (int i = 1; i <= 40; i++)
         {
-            MigrationComponent c = new MigrationComponent( "application_" + i );
+            MigrationComponent c = new MigrationComponent( "application_" + i + ".ear" );
             p2.addComponent(c);
+            if (i == 3 || i == 11 || i == 12 || i == 13 ) {
+                c.setComponentGroup(g1);
+                c.setStatus(MigrationComponentStatus.PROCESSED);
+                c.setStoryPoints(1049);
+                c.setIncidentCount("10/21/32");
+            }
+            else if (i == 6 || i == 7 || i > 32) {
+                c.setComponentGroup(g2);
+                c.setStatus(MigrationComponentStatus.ANALYSIS_IN_PROGRESS);
+            }
         }
         projectRepository.save(p2);
 

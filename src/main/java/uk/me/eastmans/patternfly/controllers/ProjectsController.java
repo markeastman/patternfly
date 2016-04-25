@@ -64,13 +64,47 @@ public class ProjectsController {
     @RequestMapping(value="/project",method= RequestMethod.POST)
     public String createProject(@Valid @ModelAttribute Project p, BindingResult bindingResult, Model model)
     {
-        // Validate the project
+        // Validate the project the one from the view does not have all
+        // the componenets loaded so get again and update the fields
         if (!bindingResult.hasErrors()) {
-            projectService.saveProject(p);
+            Project realProject = projectService.getProjectById(p.getId());
+            realProject.setName(p.getName());
+            realProject.setLocalFileLocation(p.getLocalFileLocation());
+            projectService.saveProject(realProject);
             return "redirect:/projects";
         }
 
         return "editProject";
+    }
+
+    @RequestMapping("/project/{id}/technologies")
+    public String viewTechnologies(Model model, @PathVariable Long id)
+    {
+        // Try to get the project
+        Project project = projectService.getProjectById(id);
+
+        model.addAttribute("project", project);
+        return "technologies";
+    }
+
+    @RequestMapping("/project/{id}/issues")
+    public String viewIssues(Model model, @PathVariable Long id)
+    {
+        // Try to get the project
+        Project project = projectService.getProjectById(id);
+
+        model.addAttribute("project", project);
+        return "issues";
+    }
+
+    @RequestMapping("/project/{id}/dependencies")
+    public String viewDependencies(Model model, @PathVariable Long id)
+    {
+        // Try to get the project
+        Project project = projectService.getProjectById(id);
+
+        model.addAttribute("project", project);
+        return "dependencies";
     }
 
 

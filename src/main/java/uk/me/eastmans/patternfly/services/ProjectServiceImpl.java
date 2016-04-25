@@ -24,7 +24,15 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project getProjectById(Long id) {
-        return projectRepository.findOne(id);
+        // Get the project but also make sure components list is loaded, do not know of a better way in JPA
+        Project p = projectRepository.findOne(id);
+        if (p != null)
+        {
+            List l = p.getComponents();
+            if (!l.isEmpty())
+                l.get(0);
+        }
+        return p;
     }
 
     @Override
