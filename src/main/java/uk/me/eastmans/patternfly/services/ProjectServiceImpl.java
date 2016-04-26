@@ -26,12 +26,6 @@ public class ProjectServiceImpl implements ProjectService {
     public Project getProjectById(Long id) {
         // Get the project but also make sure components list is loaded, do not know of a better way in JPA
         Project p = projectRepository.findOne(id);
-        if (p != null)
-        {
-            List l = p.getComponents();
-            if (!l.isEmpty())
-                l.get(0);
-        }
         return p;
     }
 
