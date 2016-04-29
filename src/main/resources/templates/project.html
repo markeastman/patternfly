@@ -57,8 +57,9 @@
                 <button class="btn btn-default pull-right fa fa-pencil" data-th-onclick="'editProject(' + ${project.id} + ');'"> Edit</button>
             </div>
             <div class="panel-body">
-                <button class="btn btn-success btn-lg fa fa-cog" onclick="window.location.href='/Components/analyse'" type="button"> Analyse Components</button>
-                <table class="datatable table table-striped table-bordered">
+                <label class="btn btn-primary btn-lg fa fa-cog" data-toggle="modal" data-target="#analyseComponents"> Analyse Components</label>
+                <label class="btn btn-success btn-lg fa fa-plus" data-toggle="modal" data-target="#fileLoader"> Add Components</label>
+                <table id="componentList" class="datatable table table-striped table-bordered">
                     <thead>
                     <tr>
                         <th>Component Name</th>
@@ -69,7 +70,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-th-each="component : ${project.components}">
+                    <tr data-th-each="component : ${project.components}" data-th-id="${component.id}">
                         <td>
                             <a href="/component/1" th:if="${component.reportAvailable}" data-th-href="@{/component/}+${component.id}" data-th-text="${component.name}">Component name</a>
                             <span th:if="${!component.reportAvailable}" data-th-text="${component.name}">Component name</span>
@@ -86,8 +87,14 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <!--/*/ <th:block th:include="fragments/dialogsinc :: addComponents"></th:block> /*/-->
+    <!--/*/ <th:block th:include="fragments/dialogsinc :: analyseComponents"></th:block> /*/-->
+
 </div>
 <script>
+var selectComponentsTable;
+
   $(document).ready(function() {
 
     // initialize tooltips
@@ -96,11 +103,43 @@
     // Initialize the vertical navigation
     $().setupVerticalNavigation(true);
 
-    $('.datatable').dataTable();
+    $('#componentList').dataTable();
+
+    selectComponentsTable = $('#selectedComponents').DataTable( {
+        columnDefs: [ {
+            orderable: false,
+            className: 'select-checkbox',
+            targets:   0
+        } ],
+        select: {
+            style:    'os',
+            selector: 'td:first-child'
+        },
+        order: [[ 1, 'asc' ]],
+        pageLength: 10
+    } );
+
+    $("#fileNames").fileinput({showCaption: false});
 
   });
+
+    function selectComponents()
+    {
+        // This should really be an ajax call to process the rest of the dialog properly
+        console.log( "Selecting components" );
+        var hiddenValue = $('#selectedComponentIds');
+        var msg = "Will be analysing the following components: ";
+        selectComponentsTable.rows( { selected: true } ).every( function () {
+            var d = this.data();
+            // need to append this to the value of the hidden field
+            hiddenValue.val( hiddenValue.val() + d[1] + ',' );
+            msg = msg + d[2] + ', ';
+        } );
+        console.log( $('#selectedComponentIds').val() );
+        alert( msg );
+        return true;
+    }
+
 </script>
 </body>
 </html>
-
-

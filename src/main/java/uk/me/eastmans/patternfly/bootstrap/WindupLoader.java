@@ -6,10 +6,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import uk.me.eastmans.patternfly.domain.ComponentGroup;
-import uk.me.eastmans.patternfly.domain.MigrationComponent;
-import uk.me.eastmans.patternfly.domain.MigrationComponentStatus;
-import uk.me.eastmans.patternfly.domain.Project;
+import uk.me.eastmans.patternfly.domain.*;
+import uk.me.eastmans.patternfly.repositories.ApplicationSettingsRepository;
 import uk.me.eastmans.patternfly.repositories.ProjectRepository;
 
 import java.util.List;
@@ -24,10 +22,19 @@ public class WindupLoader implements ApplicationListener<ContextRefreshedEvent> 
     @Autowired
     private ProjectRepository projectRepository;
 
+    @Autowired
+    private ApplicationSettingsRepository settingsRepository;
+
     private Logger log = Logger.getLogger(WindupLoader.class);
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+
+        // Create a master config item
+        ApplicationSettings settings = new ApplicationSettings();
+        settings.setId(1L);
+        settings.setLocalFileLocation("/home/meastman/windup");
+        settingsRepository.save(settings);
 
         Project p1 = new Project("Allianz demo");
         projectRepository.save(p1);

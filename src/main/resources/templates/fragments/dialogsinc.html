@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head lang="en">
+
+</head>
+<body>
+<!-- Modal -->
+<div th:fragment="addComponents" >
+    <div class="modal fade" id="fileLoader" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Add Components To Project</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" th:action="@{'/project/'+${project.id}+'/addComponents'}" method="post" enctype="multipart/form-data">
+                        <label class="control-label">Select Files</label>
+                        <input id="fileNames" name="files[]" type="file" multiple="true" class="file-loading"/>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="analyseComponents" >
+    <div class="modal fade" id="analyseComponents" tabindex="-1" role="dialog" aria-labelledby="myModalLabel2">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel2">Analyse Components</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="#" th:action="@{'/project/'+${project.id}+'/analysePackages'}" method="post">
+                        <input type="hidden" id="selectedComponentIds" name="selectedComponentIds" value="" />
+                        <label class="control-label">Select Components</label>
+                        <table class="datatable table table-striped table-bordered" id="selectedComponents">
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th style="display:none;">Identifier</th>
+                                <th>Component Name</th>
+                                <th>Group</th>
+                                <th>Status</th>
+                                <th>Story Points</th>
+                                <th>Incident Count</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-th-each="component : ${project.components}">
+                                <td name="selected"></td>
+                                <td name="id" style="display:none;" data-th-text="${component.id}">id</td>
+                                <td data-th-text="${component.name}">name</td>
+                                <td data-th-text="${component.componentGroup}">group</td>
+                                <td data-th-text="${component.status}">status</td>
+                                <td data-th-text="${component.storyPoints}">1049</td>
+                                <td data-th-text="${component.incidentCount}">status</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button type="submit" class="btn btn-primary pull-right" onclick="selectComponents();">Analyse Packages</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

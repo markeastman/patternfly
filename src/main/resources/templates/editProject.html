@@ -40,9 +40,9 @@
                     <div class="form-group">
                         <label class="col-md-2 control-label" for="fileLocation">File Location</label>
                         <div class="col-md-6">
-                            <input type="text" id="fileLocation" class="form-control" th:field="*{localFileLocation}" />
+                            <input type="text" id="fileLocation" class="form-control" th:value="${localFileLocation}" readonly="true"/>
                         </div>
-                        <button class="btn btn-success btn-lg fa fa-plus" onclick="window.location.href='/addComponents'" type="button"> Add Components</button>
+                        <label class="btn btn-success btn-lg fa fa-plus" data-toggle="modal" data-target="#fileLoader"> Add Components</label>
                     </div>
                     <div class="form-group">
                         <div class="col-md-10 col-md-offset-2">
@@ -54,8 +54,11 @@
             </div>
         </div>
     </div>
+    <!-- Modal -->
+    <!--/*/ <th:block th:include="fragments/dialogsinc :: addComponents"></th:block> /*/-->
 
 </div>
+
 <script>
   $(document).ready(function() {
     // initialize tooltips
@@ -63,6 +66,8 @@
 
     // Initialize the vertical navigation
     $().setupVerticalNavigation(true);
+
+    $("#fileNames").fileinput({showCaption: false});
 
   });
 </script>

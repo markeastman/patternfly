@@ -1,5 +1,6 @@
 package uk.me.eastmans.patternfly.services;
 
+import org.springframework.web.multipart.MultipartFile;
 import uk.me.eastmans.patternfly.domain.Project;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface ProjectService {
     Project saveProject(Project project);
 
     void deleteProject(Long id);
+
+    String getRootFolderLocation(Project p);
+
+    void uploadFiles(Long projectId, MultipartFile[] files);
 }

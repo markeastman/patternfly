@@ -22,9 +22,6 @@ public class Project
     @Column(unique = true)
     private String name;
 
-    @Size(min = 0, max = 512)
-    private String localFileLocation;
-
     @OneToMany(cascade = CascadeType.ALL)
     private List<MigrationComponent> components = new ArrayList<>();
 
@@ -52,14 +49,6 @@ public class Project
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getLocalFileLocation() {
-        return localFileLocation;
-    }
-
-    public void setLocalFileLocation(String localFileLocation) {
-        this.localFileLocation = localFileLocation;
     }
 
     public List<MigrationComponent> getComponents() {
